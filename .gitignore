@@ -1,0 +1,7 @@
+.DS_Store
+*.log
+logs/
+_to_delete/
+.env*
+*.key
+*auth*.json
