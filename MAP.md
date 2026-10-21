@@ -33,6 +33,8 @@ personal-os/
 │   └── weekly-review/         # example ritual skill: customise or delete
 ├── docs/connect-cloud-assistants.md # ChatGPT, Gemini, Venice and Meta AI setup
 ├── scripts/                   # sync, audit, daily check, status, launcher, vault mirror, unstick, install, uninstall
+│   ├── build-vault-bundles.py # packs the vault into ~25 bundles for Google Docs (run by the mirror)
+│   └── vault-docs.gs          # Google Apps Script, runs hourly in your Google account: bundles -> Google Docs
 ├── launchd/                   # templates for the background jobs
 ├── projects/README.md         # new projects start here, one AGENTS.md each
 └── inbox/README.md            # unfiled drops: file them, then update MAP
@@ -56,6 +58,7 @@ Launcher: `~/bin/personal-os-agent {claude|codex|COMMAND}` syncs before and afte
 |---|---|---|
 | Notes vault | `<path>` | <what lives there: daily notes, people, projects> |
 | Vault mirror | Google Drive `My Drive/Vault-Mirror/` | one-way, markdown-only copy for cloud assistants; `scripts/mirror-vault-to-drive.sh` every 30 minutes; folders in `POS_MIRROR_EXCLUDE` (config.sh) never copied |
+| Vault Docs (for Gemini) | Google Drive `My Drive/Vault-Bundles/` -> `My Drive/Vault-Docs/` | ~25 bundles written by the mirror job, turned into Google Docs titled `[Vault] ...` every hour by `scripts/vault-docs.gs` in your Google account; start with `[Vault] 00 START HERE` |
 | Cloud assistants | ChatGPT · Gemini · Venice · Meta AI | profile from `prompts/cloud-llm-context*.md`; connections in `docs/connect-cloud-assistants.md` |
 | AI digest (optional) | Google Drive `AI-Digests/` | daily Claude scheduled task from `prompts/other-ai-digest.md`: what you did in the other assistants |
 | <Other system> | <where> | <what> |

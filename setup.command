@@ -48,6 +48,7 @@ fi
 
 POS_NAME=""; POS_EMAIL=""; POS_LABEL_PREFIX="com.$(id -un)"; POS_VAULT_DIR=""
 POS_DRIVE_ACCOUNT=""; POS_MIRROR_EXCLUDE="Private.nosync"; POS_LOADERS=""
+POS_BUNDLES="on"; POS_BUNDLE_KEY_NOTES=""
 if [ -f config.sh ]; then . ./config.sh; fi
 
 default_name=${POS_NAME:-$(id -F 2>/dev/null || id -un)}
@@ -135,6 +136,9 @@ umask 077
   printf 'POS_DRIVE_ACCOUNT=%s\n' "$(quote "$POS_DRIVE_ACCOUNT")"
   printf 'POS_MIRROR_EXCLUDE=%s\n' "$(quote "$POS_MIRROR_EXCLUDE")"
   printf 'POS_LOADERS=%s\n' "$(quote "$POS_LOADERS")"
+  printf '# Bundles for Gemini (Vault-Bundles/): on or off, and vault-relative notes to show in full, separated by ;\n'
+  printf 'POS_BUNDLES=%s\n' "$(quote "$POS_BUNDLES")"
+  printf 'POS_BUNDLE_KEY_NOTES=%s\n' "$(quote "$POS_BUNDLE_KEY_NOTES")"
 } > config.sh
 umask 022
 say "Saved your settings to config.sh"

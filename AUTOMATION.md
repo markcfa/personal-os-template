@@ -6,7 +6,8 @@ Installed by `setup.command` (or `scripts/install-launch-jobs.sh`) as launchd jo
 
 - `personal-os-sync`: at login and every 15 minutes. Backs up this repo to its private GitHub remote.
 - `personal-os-maintenance`: at login and daily at 09:15. Forced sync plus the audit, recorded in a log.
-- `vault-mirror` (optional): at login and every 30 minutes. One-way, markdown-only copy of your vault to Google Drive `My Drive/Vault-Mirror/`. Needs Google Drive for desktop.
+- `vault-mirror` (optional): at login and every 30 minutes. One-way, markdown-only copy of your vault to Google Drive `My Drive/Vault-Mirror/`, then about 25 bundles in `My Drive/Vault-Bundles/` (`scripts/build-vault-bundles.py`; `POS_BUNDLES=off` in config.sh skips them, `POS_BUNDLE_KEY_NOTES` lists notes to include in full in `00 START HERE`). Needs Google Drive for desktop.
+- `vault-docs.gs` (optional, not on your Mac): an Apps Script in your Google account turns the bundles into Google Docs in `My Drive/Vault-Docs/` every hour, for Gemini. Setup and removal: `docs/connect-cloud-assistants.md`. Its log: script.google.com › the project › Executions. After editing the script here, paste it into the project again.
 - `~/bin/personal-os-agent` runs a forced sync before and after a local agent session.
 
 The sync job fetches `origin/main`, accepts remote changes only when they fast-forward a clean checkout, runs the audit, waits until edited files have been quiet for two minutes, stages changes, runs `gitleaks`, commits, fetches again and pushes only when the remote is still an ancestor. It never force-pushes, rebases or resolves conflicts.
@@ -54,5 +55,7 @@ Log lines and what they mean:
 | `COMMIT` then `PUSH` | backed up |
 | `DEFER \| a wrapped ... session is active` | a `personal-os-agent` session is open; it backs up when the session ends. All day long: run `unstick-personal-os-sync.sh` |
 | `DEFER \| repository changed within the last two minutes` | waiting for you to stop typing |
+| `BUNDLES \| OK \| ...` (vault-mirror.log) | bundles for Google Docs rebuilt; only changed ones are rewritten |
+| `WARN \| vault bundles failed` (vault-mirror.log) | the mirror worked but the bundles did not: read the rest of the line |
 | `FAIL \| gitleaks rejected staged changes` | something looked like a secret: remove it, then force a sync |
 | `FAIL \| ... diverged` | GitHub has commits your Mac does not: resolve by hand (`git pull --rebase` when you are sure) |

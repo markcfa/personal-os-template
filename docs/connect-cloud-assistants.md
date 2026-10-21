@@ -5,14 +5,14 @@ What each assistant can reach, and how to set it up. Menus and plan rules change
 | Assistant | Reads this repo | Reads your notes | Gets your profile from |
 |---|---|---|---|
 | ChatGPT | yes, through its GitHub app (read-only in chat) | yes, through Google Drive (`Vault-Mirror/`) | custom instructions, optionally a project file |
-| Gemini | as a snapshot you import per chat | yes, through Google Workspace (Drive) | a Gem |
+| Gemini | as a snapshot you import per chat | yes, as Google Docs in `Vault-Docs/` (it cannot read .md files) | a Gem (a skill from 17 November 2026) |
 | Venice | no | no | its system prompt |
 | Meta AI | no | no | its memory |
 
 ## Before you start: decide what goes where
 
 - **This repo** is pushed to GitHub and readable by ChatGPT. Keep it free of sensitive detail (see AGENTS.md).
-- **Your notes** reach ChatGPT and Gemini through the Drive mirror. Connecting Google Drive or Gmail gives an assistant your whole account, not one folder. If any of it is sensitive (legal, medical, financial), think before you connect, and take advice where it matters.
+- **Your notes** reach ChatGPT through the Drive mirror and Gemini through the Google Docs made from it (see Gemini, step 4). Connecting Google Drive or Gmail gives an assistant your whole account, not one folder. If any of it is sensitive (legal, medical, financial), think before you connect, and take advice where it matters.
 - **Instruction boxes** go with every chat in that assistant, including image work. Anything you type there is your choice; the context pack in this repo stays generic.
 
 ## ChatGPT
@@ -28,9 +28,20 @@ What each assistant can reach, and how to set it up. Menus and plan rules change
 
 1. **Keep Activity** (myactivity.google.com/product/gemini) must be on for Gemini to use your Google apps. With it on, Google can use your chats to improve its models and human reviewers may read some of them. Temporary Chats are not used for training.
 2. **Gmail:** Gmail › Settings › General › Smart features must be on, or Gemini cannot connect to Gmail.
-3. **Your notes:** gemini.google.com/apps › connect Google Workspace (Gmail, Drive, Docs).
-4. **Profile:** Gems › New Gem. Paste your instructions and profile into Instructions; add `cloud-llm-context.md` under Knowledge. Google announced that Gems migrate to "skills" from 17 November 2026.
-5. **This repo:** in a chat, + › Import code › your repo URL (it asks to link GitHub the first time), or Upload folder for the live copy on your Mac. Either way it is a one-off snapshot for that chat (one repo per chat, up to 5,000 files and 100 MB).
+3. **Connect Drive:** gemini.google.com/apps › connect Google Workspace (Gmail, Drive, Docs).
+4. **Your notes as Google Docs.** Gemini's Drive search reads Google Docs, Sheets, Slides and PDFs but not .md files, so the mirror job also packs your notes into about 25 bundles in `My Drive/Vault-Bundles/`, and a small Google Apps Script in your own account turns them into Google Docs titled `[Vault] ...` in `My Drive/Vault-Docs/`, every hour. Set it up once, after the mirror has run (check `Vault-Bundles/` exists):
+   1. In Terminal: `pbcopy < ~/personal-os/scripts/vault-docs.gs` (copies the script).
+   2. script.google.com › New project. Rename it "Vault Docs". Select everything in Code.gs, paste over it, press Cmd+S.
+   3. In the left sidebar: Services (+) › Drive API › Add (leave it on v3).
+   4. In the function menu at the top choose `setup`, click Run, then Review permissions › your account. Google warns the app is unverified because it is your own script: Advanced › Go to Vault Docs › Allow.
+   5. The log ends with a line such as "Bundles: 25 listed, 25 copied to Docs". Check `Vault-Docs/` in Drive. A very large vault can take two or three hourly runs.
+
+   Don't edit or share the `[Vault]` Docs: each run overwrites them, and together they hold every note you mirror. To stop it, open the project at script.google.com › Triggers (the alarm-clock icon) › delete the trigger, then delete `Vault-Docs/`.
+5. **Profile:** Gems › New Gem. Paste your instructions and profile into Instructions (optionally add `cloud-llm-context.md` under Knowledge), and end the instructions with this line so it uses your notes:
+   `My notes: when a question needs my notes, search my Google Drive for Docs whose titles start with "[Vault]". Read "[Vault] 00 START HERE" first; its bundle map says which Doc to open next. Name the note you used from its "=== FILE:" line.`
+   Google is turning Gems into "skills" from 17 November 2026: existing Gems migrate automatically, skills sit under Settings and are run with a slash command in the chat box. After that date, create a skill with the same instructions instead of a Gem.
+6. **Test:** "Read [Vault] 00 START HERE in my Drive and list my five most recent open tasks." It should name the note it used from its `=== FILE:` line.
+7. **This repo:** in a chat, + › Import code › your repo URL (it asks to link GitHub the first time), or Upload folder for the live copy on your Mac. Either way it is a one-off snapshot for that chat (one repo per chat, up to 5,000 files and 100 MB).
 
 ## Venice
 

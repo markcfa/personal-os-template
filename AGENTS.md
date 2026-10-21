@@ -38,7 +38,7 @@ Root: this repo (setup assumes `~/personal-os`, but any folder works). It is the
 ## Systems landscape (canonical homes)
 
 <!-- One line per system an agent may need: where it lives, plus its one hard rule. -->
-- **Notes vault**: `<path to your vault>`. Daily notes `<folder and file pattern>`. Mirrored one way, markdown only, to Google Drive `Vault-Mirror/` every 30 minutes by `scripts/mirror-vault-to-drive.sh`.
+- **Notes vault**: `<path to your vault>`. Daily notes `<folder and file pattern>`. Mirrored one way, markdown only, to Google Drive `Vault-Mirror/` every 30 minutes by `scripts/mirror-vault-to-drive.sh`, which also writes ~25 bundles to `Vault-Bundles/`; `scripts/vault-docs.gs` turns those into Google Docs in `Vault-Docs/` for Gemini.
 - **<Dashboard, app or database>**: `<path or URL>`. <Its hard rule, e.g. "one writer per page".>
 
 ## Sensitive data: pointers only (hard rule)

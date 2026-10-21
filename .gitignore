@@ -7,3 +7,4 @@ _to_delete/
 *.key
 *auth*.json
 config.sh
+__pycache__/

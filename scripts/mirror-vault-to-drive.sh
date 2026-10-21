@@ -5,6 +5,9 @@
 # folders such as .obsidian and .trash, _to_delete/, *.bak-* files and anything not markdown.
 # Deletions propagate (it is a mirror), but it refuses to run if Drive is not mounted or the
 # vault looks empty, so a sync failure can never wipe the copy.
+# Then it packs the same notes into about 25 bundles in Drive "Vault-Bundles/" for Gemini, which
+# cannot read .md files: scripts/vault-docs.gs (a Google Apps Script) turns them into Google Docs.
+# Set POS_BUNDLES=off in config.sh to skip the bundles.
 
 set -eu
 
@@ -65,3 +68,15 @@ done
 
 copied=$( { find "$dest" -type f -name '*.md' 2>/dev/null || true; } | wc -l | tr -d ' ')
 log "OK | mirror holds $copied markdown files ($rsync_bin)"
+
+if [ "${POS_BUNDLES:-on}" = "off" ]; then
+  exit 0
+fi
+bundles="$drive/${POS_BUNDLE_FOLDER:-Vault-Bundles}"
+# shellcheck disable=SC2086 # POS_MIRROR_EXCLUDE is a space-separated list by design
+if out=$(POS_BUNDLE_KEY_NOTES="${POS_BUNDLE_KEY_NOTES:-}" /usr/bin/python3 "$root/scripts/build-vault-bundles.py" \
+    "$src" "$bundles" ${POS_MIRROR_EXCLUDE:-} 2>&1); then
+  log "BUNDLES | $(printf '%s\n' "$out" | tail -n 1)"
+else
+  log "WARN | vault bundles failed, the mirror itself is fine: $(printf '%s\n' "$out" | tail -n 1)"
+fi

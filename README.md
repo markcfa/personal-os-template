@@ -2,14 +2,14 @@
 
 One folder that gives every AI you use long-term memory, house rules and a map of your life.
 
-AI agents are goldfish: every new chat starts from zero and you re-explain yourself. This template fixes that. It is a small Git repo, a "personal operating system", that every agent reads: Claude Code and Codex load it automatically on your Mac, ChatGPT reads it through GitHub, ChatGPT and Gemini read your notes through a Google Drive mirror, and Venice and Meta AI get a short profile. Because every agent writes decisions back to the same log, they share one memory instead of each app hoarding its own. It backs itself up to a private GitHub repo every 15 minutes, and an optional daily task tells Claude what you did in the other assistants.
+AI agents are goldfish: every new chat starts from zero and you re-explain yourself. This template fixes that. It is a small Git repo, a "personal operating system", that every agent reads: Claude Code and Codex load it automatically on your Mac, ChatGPT reads it through GitHub, ChatGPT and Gemini read your notes through a Google Drive mirror (as Google Docs for Gemini), and Venice and Meta AI get a short profile. Because every agent writes decisions back to the same log, they share one memory instead of each app hoarding its own. It backs itself up to a private GitHub repo every 15 minutes, and an optional daily task tells Claude what you did in the other assistants.
 
 ## What you get
 
 - **One shared brief.** `AGENTS.md` says who you are, how you want agents to work and your hard rules. Every local agent loads the same file, so you never maintain five copies.
 - **A map and a memory.** `MAP.md` says where everything lives; `knowledge/decisions.md` and `knowledge/learnings.md` stop agents relitigating decisions or repeating mistakes.
 - **Safe automatic backup.** Every 15 minutes the repo is committed and pushed to your private GitHub repo, after a `gitleaks` secret scan. It never force-pushes or merges anything by itself: when in doubt it stops and logs why.
-- **Your notes for cloud assistants.** An optional one-way, markdown-only copy of your Obsidian vault into Google Drive every 30 minutes, so ChatGPT and Gemini can search it. Folders you name (for example `Private.nosync`) never leave your Mac.
+- **Your notes for cloud assistants.** An optional one-way, markdown-only copy of your Obsidian vault into Google Drive every 30 minutes, so ChatGPT can search it, plus about 25 Google Docs made from it by a small script in your Google account, because Gemini cannot read .md files. Folders you name (for example `Private.nosync`) never leave your Mac.
 - **A context pack.** A profile you paste into ChatGPT, Gemini, Venice and Meta AI so they answer the way you want.
 - **A digest back to Claude (optional).** A daily Claude task reads your other assistants' chats, read-only, and files a summary in Drive.
 
@@ -20,7 +20,8 @@ AI agents are goldfish: every new chat starts from zero and you re-explain yours
                                                       │
    ~/personal-os (this repo) ── every 15 min ──> private GitHub repo ──> ChatGPT (GitHub app)
                                                       
-   Obsidian vault ── every 30 min, .md only ──> Google Drive/Vault-Mirror ──> ChatGPT, Gemini
+   Obsidian vault ── every 30 min, .md only ──> Google Drive/Vault-Mirror ──> ChatGPT
+                  └─ ~25 bundles ──> Drive/Vault-Bundles ── hourly Apps Script ──> Drive/Vault-Docs ──> Gemini
                                                       
    Venice, Meta AI <── paste prompts/cloud-llm-context*.md
 
@@ -75,9 +76,9 @@ Check that everything is running at any time:
 
 - **Keep your copy private.** Setup stops if it finds your remote is public.
 - **Pointers, not data.** Never put health details, account numbers, passwords, home addresses, legal matters or relationship detail in this repo; ChatGPT can read it. `gitleaks` catches secrets such as API keys, not personal detail.
-- **The mirror is one way.** It copies your vault to Drive and deletes there what you delete in the vault. Don't edit files inside `Vault-Mirror/`: the next run overwrites them. It refuses to run if Drive is missing or your vault looks empty, so a glitch cannot wipe the copy.
+- **The mirror is one way.** It copies your vault to Drive and deletes there what you delete in the vault. Don't edit files inside `Vault-Mirror/`, `Vault-Bundles/` or `Vault-Docs/`: the next run overwrites them, and don't share those folders, which hold every note you mirror. It refuses to run if Drive is missing or your vault looks empty, so a glitch cannot wipe the copy.
 - **Connecting Google Drive or Gmail to an assistant shares the whole account**, not one folder. Decide what you are comfortable with first.
-- **To remove it:** `~/personal-os/scripts/uninstall.sh` stops and deletes the background jobs and the launcher. It leaves your files alone.
+- **To remove it:** `~/personal-os/scripts/uninstall.sh` stops and deletes the background jobs and the launcher. It leaves your files alone. The Vault Docs script lives in your Google account: delete its trigger at script.google.com (see the Gemini steps).
 
 ## Licence
 
