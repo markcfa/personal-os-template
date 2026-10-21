@@ -1,12 +1,10 @@
 # Decisions log
 
-Append dated entries, newest first. Always include the why — a decision without its reasoning gets relitigated. Absolute dates only ("12 Aug 2026", never "last Tuesday").
+Append dated entries, newest first. Always include the why. Absolute dates only.
 
-## <date> — <decision title>
+<!-- Format:
+## DD Mon YYYY: short name
 
-- <What was decided.>
-- Why: <the reasoning, briefly — enough that a future agent doesn't reopen it.>
-
-## Standing decisions — do not relitigate
-
-- <date> — <settled call an agent once tried to reverse or would plausibly question. e.g. "Tool X stays the front end", "System Y owns tasks, not System Z".>
+- What: the decision, specifically enough that an agent can act on it.
+- Why: the reason, in your words, so nobody relitigates it.
+-->

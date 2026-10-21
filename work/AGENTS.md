@@ -1,9 +1,13 @@
-# work/ — domain rules
+# work/: rules for work material
 
-Rules for agents working on your professional material. Rules live here; work product can too — confidential client data cannot (see the Sensitive rule in the root AGENTS.md).
+The Sensitive rule in the root AGENTS.md applies with full force here.
 
-- Current focus: <your top professional priorities, dated — or point to goals/north-star.md>.
-- Triage priorities: <which senders/threads/counterparties get chased first>.
-- Standards: <what "done" looks like for your core deliverable — structure, voice, checks>.
-- <If you serve clients: client separation is absolute — never copy confidential material across client boundaries.>
-- Drafts are ready-to-send; <you> send — agents never send, publish, or submit.
+## Current focus
+
+- <What matters at work this quarter, in two or three lines.>
+
+## Standards
+
+- Client separation is absolute: never copy one client's confidential material into another's work.
+- Adapting an existing document: update every name, organisation, figure, date, link, comment and metadata field before it leaves draft.
+- Drafts are ready-to-send copy, but you send them: agents never send, publish or submit anything.

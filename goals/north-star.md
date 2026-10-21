@@ -1,18 +1,13 @@
 # North Star
 
-> The few outcomes that everything else serves. Review it in your weekly review; rewrite it when it stops being true. If you surface it anywhere (dashboard, wallpaper, wherever), keep this file and that surface in sync.
+> Your goals, in your own words. Agents use this to rank and prioritise; keep it short and current.
 
 ## 90 days
 
-- <outcome 1 — concrete, verifiable, with a date where possible>
-- <outcome 2>
-- <outcome 3 — keep it to ~6 lines maximum; more than that is a task list, not a north star>
+- <Goal 1: concrete and checkable>
+- <Goal 2>
+- <Goal 3>
 
 ## Long game
 
-| Era | Theme | |
-|---|---|---|
-| <age range> | <one word> | <what this decade is for> |
-| <age range> | <one word> | <what this decade is for> |
-
-**Threads:** <2–4 through-lines that span every era — e.g. health, craft, place, people.>
+- <Where you want to be in 5 to 10 years, in a few lines>

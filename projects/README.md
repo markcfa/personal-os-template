@@ -1,5 +1,3 @@
 # projects/
 
-New projects start here — one folder each, with its own AGENTS.md from day one.
-
-Existing projects elsewhere on your machine can stay put (moving things with schedulers, hardcoded paths, or automations pointing at them is a project in itself). List them in MAP.md and migrate only deliberately.
+New projects start here: one folder each, with its own AGENTS.md from day one. Projects that already live elsewhere stay where they are until you deliberately migrate them; record them in MAP.md.

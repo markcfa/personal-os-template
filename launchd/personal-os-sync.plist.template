@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Template: scripts/install-launch-jobs.sh fills in __LABEL__, __ROOT__ and __HOME__ and installs
+     the result in ~/Library/LaunchAgents. Edit here, then re-run that script. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>__LABEL__</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/sh</string>
+    <string>__ROOT__/scripts/sync-personal-os.sh</string>
+  </array>
+  <key>WorkingDirectory</key><string>__ROOT__</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key><string>__HOME__</string>
+    <key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>PERSONAL_OS_ROOT</key><string>__ROOT__</string>
+  </dict>
+  <key>RunAtLoad</key><true/>
+  <key>StartInterval</key><integer>900</integer>
+  <key>ProcessType</key><string>Background</string>
+  <key>LowPriorityIO</key><true/>
+  <key>StandardOutPath</key><string>__HOME__/Library/Logs/personal-os-sync-launchd.log</string>
+  <key>StandardErrorPath</key><string>__HOME__/Library/Logs/personal-os-sync-launchd.log</string>
+</dict>
+</plist>

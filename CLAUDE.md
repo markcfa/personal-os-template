@@ -1,3 +1,3 @@
 @AGENTS.md
 
-Claude-specific note: durable, cross-agent facts belong in `knowledge/`; anything vendor-specific (Claude project memory, custom instructions) should complement — never replace — what's written there.
+Claude-specific note: durable, cross-agent facts belong in `knowledge/`; anything only Claude needs can live in Claude's own memory.

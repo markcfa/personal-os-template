@@ -1,7 +1,9 @@
 .DS_Store
 *.log
 logs/
+*.bak-*
 _to_delete/
 .env*
 *.key
 *auth*.json
+config.sh

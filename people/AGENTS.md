@@ -1,8 +1,7 @@
-# people/ — relationships (rules, not data)
+# people/: rules for anything about people (rules, not data)
 
-The pattern: whatever surface displays your relationships (a CRM, a dashboard, a list) is the display layer; deep personal context stays in its private home. This folder holds the *rules* for handling people.
+Facts about people live in your notes vault, not in this repo.
 
-- Never invent facts about people — birthdays, preferences, history. Blanks stay blank until stated.
-- <Which categories of detail never appear on shared surfaces — e.g. health, relationships, addresses.>
-- <Before suggesting outreach: what to check first, so suggestions land in context rather than on autopilot.>
-- <Standing rhythms worth protecting — the weekly call, the monthly dinner.>
+- Birthdays and personal details: only what you have stated; never invent; blanks stay blank.
+- Never put home addresses, health, dating or relationship detail, or legal matters about anyone into this repo.
+- Before suggesting outreach to someone, check their current notes in the vault rather than assuming a cadence.
