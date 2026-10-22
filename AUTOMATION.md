@@ -53,7 +53,7 @@ Log lines and what they mean:
 |---|---|
 | `NOCHANGE` | nothing to back up |
 | `COMMIT` then `PUSH` | backed up |
-| `DEFER \| a wrapped ... session is active` | a `personal-os-agent` session is open; it backs up when the session ends. All day long: run `unstick-personal-os-sync.sh` |
+| `DEFER \| agent session (PID ...) is open and the repo changed in the last hour` | a `personal-os-agent` session is open and busy; it backs up once the repo has been idle for an hour, or when the session ends |
 | `DEFER \| repository changed within the last two minutes` | waiting for you to stop typing |
 | `BUNDLES \| OK \| ...` (vault-mirror.log) | bundles for Google Docs rebuilt; only changed ones are rewritten |
 | `WARN \| vault bundles failed` (vault-mirror.log) | the mirror worked but the bundles did not: read the rest of the line |

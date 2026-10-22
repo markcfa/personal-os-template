@@ -36,9 +36,26 @@ fail() {
   exit 1
 }
 
-if [ "$force" -eq 0 ] && /usr/bin/shlock -f "$agent_session_lock"; then
-  log "DEFER | a wrapped Personal OS agent session is active"
-  exit 0
+# Check the session lock by hand: `shlock -f` without -p can report a lock as held after the file is
+# gone, which made this job defer forever. A session counts only if the lock names a live
+# personal-os-agent process, and a session that has left the repo untouched for an hour no longer
+# blocks the backup.
+session_active() {
+  [ -f "$agent_session_lock" ] || return 1
+  pid=$(tr -dc '0-9' < "$agent_session_lock")
+  [ -n "$pid" ] || return 1
+  kill -0 "$pid" 2>/dev/null || return 1
+  ps -o command= -p "$pid" 2>/dev/null | grep -q 'personal-os-agent' || return 1
+  return 0
+}
+if [ "$force" -eq 0 ] && session_active; then
+  busy=$(find "$canonical" -path "$canonical/.git" -prune -o -name '*.bak-*' -prune -o \
+    -name '.DS_Store' -prune -o -type f -mmin -60 -print -quit 2>/dev/null)
+  if [ -n "$busy" ]; then
+    log "DEFER | agent session (PID $pid) is open and the repo changed in the last hour"
+    exit 0
+  fi
+  log "NOTE | an agent session is open but the repo has been idle for an hour; backing up anyway"
 fi
 
 if ! /usr/bin/shlock -f "$lock_file" -p "$$"; then
