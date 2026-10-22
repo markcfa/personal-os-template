@@ -41,7 +41,9 @@ case "$client" in
     client_status=$?
     ;;
   codex)
-    command_path=$(command -v codex || printf '/Applications/ChatGPT.app/Contents/Resources/codex')
+    # The ChatGPT app keeps Codex in Resources/codex-cli/bin/codex (older builds: Resources/codex).
+    command_path=$(command -v codex || { for c in /Applications/ChatGPT.app/Contents/Resources/codex-cli/bin/codex /Applications/ChatGPT.app/Contents/Resources/codex; do [ -x "$c" ] && { printf '%s' "$c"; break; }; done; } || true)
+    [ -n "$command_path" ] || command_path=codex
     "$command_path" "$@"
     client_status=$?
     ;;
